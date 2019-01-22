@@ -1,0 +1,58 @@
+/* 公用样式 */
+html,body{
+  height: 100%;
+}
+body{
+  display: flex;
+}
+a{
+  text-decoration: none;
+}
+.layout-side{
+  flex-shrink: 0;
+  width:256px;
+  height: 100%;
+  background: #333;
+}
+.layout-main{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: #ccc;
+}
+.layout-header{
+  height: 50px;
+  background: #102441;
+}
+.layout-body{
+  flex: 1;
+  overflow: auto;
+}
+.layout-side ul li a{
+  display: block;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid #000;
+  color: #fff;
+  padding-left: 20px;
+}
+.layout-side ul li a:hover{
+  text-decoration: none;
+}
+/* ==========================表格================================== */
+.banner-table{
+  width: 100%;
+  border:1px solid #000;
+}
+.banner-table th,.banner-table td{
+  border: 1px solid #000;
+  height: 50px;
+  line-height: 50px;
+  vertical-align: middle;
+  text-align: center;
+}
+.banner-img{
+  height: 50px;
+  display: block;
+  margin: 0 auto;
+}
