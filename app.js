@@ -5,17 +5,19 @@ const cookieParser = require('cookie-parser');
 const app = express();
 
 //引入的路由中间的文件
-const indexRouter = require('./routes/index');
-const bannerRouter = require('./routes/banner');
+const indexRouter = require('./routes/indexRouter');
+const bannerRouter = require('./routes/bannerRouter');
 
 //设置静态文件托管
 app.use(express.static(path.resolve(__dirname,'./public')));
 
 
-//使用中间件函数
+//使用中间件 -cookie
 app.use(cookieParser());
+//使用中间件 post请求的中间件
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
+//{extended:true}这个是表示nodejs有个queryString 第三方有个qs 使用这个true就是使用第三方的qs
 
 //设置模板文件的路径与使用的什么模板引擎
 app.set('views',path.resolve(__dirname,'./views'));
