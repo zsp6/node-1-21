@@ -146,7 +146,7 @@
     //分页按钮点击事件
     this.dom.pagination.on('click','li',function(){
       // 1. 得到页码
-      //console.log($(this).attr('data-num'));
+      //console.log($(this).attr('data-num')); === console.log($(this).data('num'))
       // attr 获取属性, 如果是自定义属性并且用data-开头,我们可以更简单的使用 data
       var num = parseInt($(this).data('num'));
 
@@ -162,7 +162,29 @@
       that.search();
 
     })
- 
+    
+    //删除按钮点击事件
+    this.dom.table.on('click','.delete',function(){
+      
+      // 1. 得到id
+      var id = $(this).data('id');
+      // 2. 二次确认框
+      layer.confirm('确认删除么',function(){
+        $.post('./banner/delete',{
+          id
+        },function(res){
+          if(res.code == 0){
+            // 成功
+            that.search();
+            layer.msg('删除成功');
+          }else{
+            layer.msg('网络有误,请稍后重试');
+          }
+        })
+      },function(){
+        console.log('取消');
+      })
+    })
   }
 
 
