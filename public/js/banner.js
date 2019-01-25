@@ -22,28 +22,61 @@
   // 新增的方法
   Banner.prototype.add = function () {
     var that = this;
-    console.log(1);
-    $.post('/banner/add', {
-      bannerName: this.dom.nameInput.val(),
-      bannerUrl: this.dom.urlInput.val()
-    }, function (res) {
-      if (res.code === 0) {
-        // 成功
-        layer.msg('添加成功');
-        
-        //请求一下数据
-        that.search();//也可以用localtion.href,不过比较low,会重新刷新整个页面
-      } else {
-        // PS:很多时候,真正的错误信息不回给到用户去看
-        layer.msg('网络有误,请稍后重试');
-      }
+    // ajax 提交 并带有文件
+    
+    // 1. 实例化一个 FormData 对象
+    var formData = new FormData();
 
-      //手动调用关闭的方法
-      that.dom.addModal.modal('hide');
-      //手动清空数据框的内容
-      that.dom.nameInput.val('');
-      that.dom.urlInput.val('');
-    });
+    // 2. 给 formData 对象 加属性
+    formData.append('bannerName',this.dom.nameInput.val()); 
+    formData.append('bannerImg',this.dom.urlInput[0].files[0]); 
+
+    $.ajax({
+      url: '/banner/add',
+      method: 'POST',
+      // !!!!!!!!!!! 必须要设置以下 两个属性
+      contentType: false,  
+      processData: false,
+      data: formData,
+      success: function(){
+        layer.msg('添加成功');
+        that.search();
+      },
+      error: function(error){
+        console.log(error.message)
+        layer.msg('网络异常,请稍后重试')
+      },
+      complete: function(){
+        // 不管成功还是失败, 都会进入的一个回调函数
+        // 手动调用关闭的方法
+        that.dom.addModal.modal('hide');
+        //手动清空数据框的内容
+        that.dom.nameInput.val('');
+        that.dom.urlInput.val('');
+      }
+    })
+
+    // $.post('/banner/add', {
+    //   bannerName: this.dom.nameInput.val(),
+    //   bannerUrl: this.dom.urlInput.val()
+    // }, function (res) {
+    //   if (res.code === 0) {
+    //     // 成功
+    //     layer.msg('添加成功');
+        
+    //     //请求一下数据
+    //     that.search();//也可以用localtion.href,不过比较low,会重新刷新整个页面
+    //   } else {
+    //     // PS:很多时候,真正的错误信息不回给到用户去看
+    //     layer.msg('网络有误,请稍后重试');
+    //   }
+
+    //   //手动调用关闭的方法
+    //   that.dom.addModal.modal('hide');
+    //   //手动清空数据框的内容
+    //   that.dom.nameInput.val('');
+    //   that.dom.urlInput.val('');
+    // });
   }
   //查询的方法
   Banner.prototype.search = function () {
