@@ -21,8 +21,8 @@ a{
   background: #ccc;
 }
 .layout-header{
-  height: 50px;
-  background: #102441;
+  height: 60px;
+  background: #393D49;
 }
 .layout-body{
   flex: 1;
@@ -56,3 +56,8 @@ a{
   display: block;
   margin: 0 auto;
 }*/
+
+/* =========================修改================= */
+.layui-nav{
+  float: right;
+}
