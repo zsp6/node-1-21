@@ -24,6 +24,13 @@ app.use(express.urlencoded({extended:true}));
 app.set('views',path.resolve(__dirname,'./views'));
 app.set('view engine','ejs');
 
+// 处理跨域的一个中间件
+app.use(function(req,res,next){
+  res.set('Access-Control-Allow-Origin','*');
+  res.set('Access-Control-Allow-Headers','Content-Type');
+  next();
+})
+
 //路由中间件的使用
 app.use('/',indexRouter);
 app.use('/banner',bannerRouter);

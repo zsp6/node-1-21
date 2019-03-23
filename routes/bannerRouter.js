@@ -73,6 +73,9 @@ router.post('/add',upload.single('bannerImg'),(req,res) => {
 
 //搜索or查询banner -http://localhost:3000/banner/search
 router.get('/search',(req,res) => {
+	
+	// 解决跨域
+	//res.set('Access-Control-Allow-Origin','*');
   //分页
   //1.得到前端传递过来的参数
   let pageNum = Number(req.query.pageNum) || 1;// 当前的页数
